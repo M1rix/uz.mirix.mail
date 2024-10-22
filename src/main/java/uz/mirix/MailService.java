@@ -1,4 +1,4 @@
-package uz.mirix.mail;
+package uz.mirix;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,12 +163,12 @@ public class MailService {
      *
      * @param folder      The folder to close.
      * @param saveChanges Whether to save changes before closing.
-     * @param clearCache  Whether to expunge (clear) deleted messages before closing.
+     * @param expunge     Whether to expunge (clear) deleted messages before closing.
      */
-    public void closeFolder(Folder folder, boolean saveChanges, boolean clearCache) {
+    public void closeFolder(Folder folder, boolean saveChanges, boolean expunge) {
         try {
             if (folder != null && folder.isOpen()) {
-                if (clearCache) {
+                if (expunge) {
                     expungeFolder(folder);
                 }
                 folder.close(saveChanges);
@@ -183,7 +183,7 @@ public class MailService {
      *
      * @param store The mail store to close.
      */
-    private void closeStore(Store store) {
+    public void closeStore(Store store) {
         try {
             if (store != null && store.isConnected()) {
                 store.close();
