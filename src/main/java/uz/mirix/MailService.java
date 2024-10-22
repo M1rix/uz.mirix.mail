@@ -1,4 +1,4 @@
-package uz.mirix.mail;
+package uz.mirix;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
