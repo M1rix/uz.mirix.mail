@@ -2,6 +2,7 @@ package uz.mirix.mail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -13,6 +14,29 @@ public class MailService {
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     public MailService() {
+    }
+
+    /**
+     * Create the mail sender using the given credentials.
+     *
+     * @param host     The mail server host.
+     * @param port     The mail port.
+     * @param username The username for authentication.
+     * @param password The password for authentication.
+     * @return The JavaMailSenderImpl object.
+     */
+    public JavaMailSenderImpl getMailSender(String host, String port, String username, String password) {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost(host);
+        mailSender.setPort(Integer.parseInt(port));
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "false");
+        return mailSender;
     }
 
     /**
